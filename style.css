@@ -15,6 +15,8 @@ body {
  align-items: center;
 
  min-height: 100vh;
+ overflow: hidden;
+ position: relative;
 }
 
 /* STILE DELLE SCHEDE */
@@ -25,6 +27,8 @@ body {
     text-align: center;
     max-width: 350px;
     width: 90%;
+    position: relative;
+    z-index: 10;
 }
 
 /* STILE DELLE IMMAGINI DENTRO LE SCHEDE */
@@ -51,7 +55,7 @@ p {
 
 /* STILE BOTTONI */
 button {
-    background-color: #ff4081;
+    background-color: #ff4080a8;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -68,7 +72,7 @@ button.selected {
 }
 
 .btn_back_to_yay, .btn_back_to_date, .btn_back_to_activities {
-    background-color: #e0e0e0;
+    background-color: #e0e0e08f;
     color: #333;
 }
 
@@ -102,11 +106,92 @@ button:hover {
     background-color: #ff4081;
 }
 
-/* NASCONDERE LE SCHEDE 2, 3, 4 E 5 */
+/* NASCONDOLE SCHEDE 2, 3, 4 E 5 */
 .yay, .question_2, .question_3, .summary {
     display: none;
 }
 
 #btn_no {
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ANIMAZIONE FLUTTUANTE PER IL TITOLO */
+@keyframes floatTitle {
+    0% {transform: translateY(0px);}
+    50% {transform: translateY(-6px);}
+    100% {transform: translateY(0px);}
+}
+
+.question_1 h1 {
+    animation: floatTitle 3s ease-in-out infinite;
+}
+
+/* EFFETTO POP-UP PER LE SCHEDE */
+@keyframes popIn {
+    0% {opacity: 0; transform: scale(0.8);}
+    70% {transform: scale(1.05);}
+    100% {opacity: 1; transform: scale(1);}
+}
+
+/* APPLICO IL POP-UP A TUTTE LE SCHEDE */
+.question_1, .yay, .question_2, .question_3, .summary {
+    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* STILE PER I CORIANDOLI (QUANDO CLICCA YES) */
+.confetti {
+    position: fixed;
+    top: -50px;
+    font-size: 24px;
+    z-index: 9999;
+    user-select: none;
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-5vh) rotate(0deg);
+        opacity: 1;
+    }
+    85% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(108vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* STILE PER LE EMOJI FLUTTUANTI */
+.floating-emoji {
+    position: absolute;
+    user-select: none;
+    pointer-events: none;
+    animation: floatParticle ease-in-out infinite;
+    opacity: 0.5;
+}
+
+@keyframes floatParticle {
+    0% {
+        transform: translateY(0px) translateX(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-30px) translateX(15px) rotate(180deg);
+    }
+    100% {
+        transform: translateY(0px) translateX(0px) rotate(360deg);
+    }
+}
+
+/* CONTENITORE DEDICATO PER LE EMOJI DI SFONDO */
+#bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+
 }

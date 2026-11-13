@@ -16,10 +16,73 @@ const btnBackToActivities = document.querySelector('.btn_back_to_activities');
 
 const btnNo = document.getElementById('btn_no');
 
+/* CREAZIONE AUTOMATICA DEL CONTENITORE DI SFONDO */
+let bgContainer = document.getElementById('bg-container');
+if (!bgContainer) {
+    bgContainer = document.createElement('div');
+    bgContainer.id = 'bg-container';
+    document.body.appendChild(bgContainer);
+}
+
+/* FUNZIONE PER EMOJI FLUTTUANTI */
+function initBackgroundEmojis() {
+    const emojis = ['🌷', '🍗', '✨', '💕', '⭐', '🔥', '💥', '🌈', '🍗', '🍗', '🌹'];
+    // Creiamo 30 particelle sparse ovunque nello spazio della pagina
+    for (let i = 0; i < 200; i++) {
+        const span = document.createElement('span');
+        span.classList.add('floating-emoji');
+        span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        
+        // Posizione iniziale casuale su tutto lo schermo (X e Y)
+        span.style.left = Math.random() * window.innerWidth + 'px';
+        span.style.top = Math.random() * window.innerHeight + 'px';
+        
+        // Durata e ritardo dell'animazione casuali per un effetto naturale e non sincronizzato
+        span.style.animationDuration = (Math.random() * 4 + 4) + 's'; // Tra 4 e 8 secondi
+        span.style.animationDelay = (Math.random() * 5) + 's';
+        
+        // Dimensione casuale
+        span.style.fontSize = (Math.random() * 12 + 18) + 'px';
+        
+        bgContainer.appendChild(span);
+    }
+}
+
+// Avvio lo sfondo dinamico
+initBackgroundEmojis();
+
+/* FUNZIONE PER LA PIOGGIA DI CONFETTI */
+function createConfetti() {
+    const emojis = ['🎉', '🎊'];
+    for (let i = 0; i < 40; i++) {
+        const div = document.createElement('div');
+        div.classList.add('confetti');
+        div.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        
+        // Sparsi su tutta la larghezza dello schermo
+        div.style.left = Math.random() * window.innerWidth + 'px';
+        
+        // Partono da altezze leggermente diverse sopra lo schermo per non formare una riga
+        div.style.top = (-20 - Math.random() * 80) + 'px';
+        
+        // Velocità e ritardo casuali per un effetto "pioggia vera" sfalsata
+        div.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        div.style.animationDelay = (Math.random() * 0.5) + 's';
+        div.style.fontSize = (Math.random() * 15 + 18) + 'px';
+        
+        bgContainer.appendChild(div);
+
+        setTimeout(() => {
+            div.remove();
+        }, 5500);
+    }
+}
+
 /* GESTIONE CLICK SU YES */
 btnYes.addEventListener('click', function() {
     screen1.style.display = 'none'; // nascondo la prima scheda
     screenYay.style.display = 'block'; // mostro la scheda Yay
+    createConfetti(); // faccio partire la pioggia di emojis
 });
 
 /* GESTIONE CLICK SU CONTINUE */
@@ -50,23 +113,36 @@ btnBackToActivities.addEventListener('click', function() {
     screen3.style.display = 'block';
 });
 
-/* GESTIONE DEL BOTTONE 'NO' CHE SCAPPA */
-btnNo.addEventListener('mouseover', function() {
-    // Definisco un margine di sicurezza dai bordi
-    const margin = 80;
+/* GESTIONE DEL BOTTONE 'NO' CHE SCAPPA (PER PC E SMARTPHONE) */
+function escapeButton(e) {
+    if (e) e.preventDefault(); // impedisce il click effettivo su mobile
 
-    const maxX = (window.innerWidth - btnNo.offsetWidth) - margin;
-    const maxY = (window.innerHeight - btnNo.offsetHeight) - margin;
+    const margin = 50;
+
+    const btnWidth = btnNo.offsetWidth > 0 ? btnNo.offsetWidth : 90;
+    const btnHeight = btnNo.offsetHeight > 0 ? btnNo.offsetHeight : 40;
+
+    const maxAllowedX = window.innerWidth - btnWidth - margin;
+    const maxAllowedY = window.innerHeight - btnHeight - margin;
+
+    const safeMaxX = Math.max(margin, maxAllowedX);
+    const safeMaxY = Math.max(margin, maxAllowedY);
 
     // Genero coordinate casuali all'interno dello schermo
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
-
-    // Rendiamo il bottone "assoluto" così può muoversi liberamente sullo schermo
-    btnNo.style.position = 'absolute';
+    const randomX = Math.floor(Math.random() * (safeMaxX - margin)) + margin;
+    const randomY = Math.floor(Math.random() * (safeMaxY - margin)) + margin;
+    
+    // Uso 'fixed' per ancorare il bottone alla finestra così non esce
+    btnNo.style.position = 'fixed';
     btnNo.style.left = randomX + 'px';
     btnNo.style.top = randomY + 'px';
-});
+    btnNo.style.zIndex = '1000';
+}
+
+// Funzionamento con il mouse (PC)
+btnNo.addEventListener('mouseover', escapeButton);
+// Funzionamento con il tocco del dito (Smartphone)
+//btnNo.addEventListener('touchstart', escapeButton);
 
 /* VARIABILI PER SALVARE LE SCELTE */
 let selectedDate = "";
@@ -134,7 +210,7 @@ if (btnWhatsapp) {
         const shareURL = baseURL + "?date=" + encodeURIComponent(finalDate) + "&activities=" + encodeURIComponent(finalActivities);
 
         // Messaggio da inviare
-        const message = "it's a date! \u{1F525}\n\u{1F4C5} When: " + finalDate + "\n\u{2B50} The vibe: " + finalActivities + "\n\nCheck the plan here: " + shareURL;    
+        const message = "It's a date! 🔥\n📅 When: " + finalDate + "\n⭐ The vibe: " + finalActivities + "\n\nCheck the plan here: " + shareURL;    
         const whatsappUrl = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
         window.open(whatsappUrl, '_blank');
     });
@@ -152,11 +228,11 @@ window.addEventListener('DOMContentLoaded', function() {
 
         // Mostro la schermata di riepilogo
         const summaryScreen = document.querySelector('.summary');
-        const sumText = document.getElementById('.summary_text');
+        const sumText = document.getElementById('summary_text');
 
         if (summaryScreen && sumText) {
             summaryScreen.style.display = 'block';
-            sumText.innerHTML = "\u{1F4C5} <strong>When:</strong> " + paramDate + "<br><br>\u{1F525} <strong>The vibe:</strong> " + paramActivities;
+            sumText.innerHTML = "📅 <strong>When:</strong> " + paramDate + "<br><br>🔥 <strong>The vibe:</strong> " + paramActivities;
         }
     }
 })

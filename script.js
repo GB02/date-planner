@@ -74,9 +74,12 @@ let selectedActivities = [];
 
 // Catturo l'input della data
 const dateInput = document.querySelector('input[type="date"]');
-dateInput.addEventListener('change', function() {
-    selectedDate = dateInput.value;
-});
+if (dateInput) {
+    dateInput.addEventListener('change', function() {
+        selectedDate = dateInput.value;
+    });
+}
+
 
 // Catturo le attività selezionate
 const activityButtons = document.querySelectorAll('.question_3 button:not(.btn_back_to_date):not(.btn_gotcha)');
@@ -102,26 +105,58 @@ const btnGotcha = document.querySelector('.btn_gotcha');
 const screenSummary = document.querySelector('.summary');
 const summaryTextDiv = document.getElementById('summary_text');
 
-btnGotcha.addEventListener('click', function() {
-    screen3.style.display = 'none';
-    screenSummary.style.display = 'block';
+if (btnGotcha) {
+    btnGotcha.addEventListener('click', function() {
+        screen3.style.display = 'none';
+        screenSummary.style.display = 'block';
 
-    const displayDate = selectedDate ? selectedDate: "Whenever you're free 👀";
-    const displayActivities = selectedActivities.length > 0 ? selectedActivities.join(', ') : "We'll see 😏";
+        const displayDate = selectedDate ? selectedDate: "To be decided 👀";
+        const displayActivities = selectedActivities.length > 0 ? selectedActivities.join(', ') : "We'll see 😏";
 
-    // Formatto il testo del riepilogo
-    summaryTextDiv.innerHTML = "📅 <strong>When:</strong> " + displayDate + "<br><br>🔥 <strong>The vibe:</strong> " + displayActivities;
-});
+        // Formatto il testo del riepilogo
+        if (summaryTextDiv) {
+            summaryTextDiv.innerHTML = "📅 <strong>When:</strong> " + displayDate + "<br><br>🔥 <strong>The vibe:</strong> " + displayActivities;
+        }
+    });
+}
+
 
 /* GESTIONE INVIO SU WHATSAPP */
 const btnWhatsapp = document.querySelector('.btn_whatsapp');
-btnWhatsapp.addEventListener('click', function() {
-    const phoneNumber = "393451187602";
-    const finalDate = selectedDate ? selectedDate : "Whenever I'm free";
-    const finalActivities = selectedActivities.length > 0 ? selectedActivities.join(', ') : "JWe'll see";
+if (btnWhatsapp) {
+    btnWhatsapp.addEventListener('click', function() {
+        const phoneNumber = "393451187602";
+        const finalDate = selectedDate ? selectedDate : "To be decided";
+        const finalActivities = selectedActivities.length > 0 ? selectedActivities.join(', ') : "We'll see";
 
-    // Usiamo il '+' per unire testo e variabili in modo sicuro al 100%
-    const message = "it's a date! 🔥\n📅 When: " + finalDate + "\n⭐ The vibe: " + finalActivities + "\n\nCheck the details here: " + "https://gb02.github.io/date-planner/";    
-    const whatsappUrl = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
-    window.open(whatsappUrl, '_blank');
-});
+        // Link al sito GitHub + i parametri passati in automatico
+        const baseURL = "https://gb02.github.io/date-planner/";
+        const shareURL = baseURL + "?date=" + encodeURIComponent(finalDate) + "&activities=" + encodeURIComponent(finalActivities);
+
+        // Messaggio da inviare
+        const message = "it's a date! \u{1F525}\n\u{1F4C5} When: " + finalDate + "\n\u{2B50} The vibe: " + finalActivities + "\n\nCheck the plan here: " + shareURL;    
+        const whatsappUrl = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
+        window.open(whatsappUrl, '_blank');
+    });
+}
+
+/* GESTIONE DELL'APERTURA DEL SITO SE IL LINK HA DEI PARAMETRI */
+window.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramDate = urlParams.get('date');
+    const paramActivities = urlParams.get('activities');
+
+    if (paramDate && paramActivities) {
+        // Nascondo tutte le schermate iniziali se l'url ha parametri
+        document.querySelectorAll('.question_1, .yay, .question_2, .question_3').forEach(el => el.style.display = 'none');
+
+        // Mostro la schermata di riepilogo
+        const summaryScreen = document.querySelector('.summary');
+        const sumText = document.getElementById('.summary_text');
+
+        if (summaryScreen && sumText) {
+            summaryScreen.style.display = 'block';
+            sumText.innerHTML = "\u{1F4C5} <strong>When:</strong> " + paramDate + "<br><br>\u{1F525} <strong>The vibe:</strong> " + paramActivities;
+        }
+    }
+})

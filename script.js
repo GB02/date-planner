@@ -121,8 +121,7 @@ btnWhatsapp.addEventListener('click', function() {
     const finalActivities = selectedActivities.length > 0 ? selectedActivities.join(', ') : "JWe'll see";
 
     // Usiamo il '+' per unire testo e variabili in modo sicuro al 100%
-    const message = "It's a date! \u{1F525}\n\u{1F4C5} When: " + finalDate + "\n\u{2B50} The vibe: " + finalActivities;
-    
+    const message = "it's a date! 🔥\n📅 When: " + finalDate + "\n⭐ The vibe: " + finalActivities + "\n\nCheck the details here: " + "https://gb02.github.io/date-planner/";    
     const whatsappUrl = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
     window.open(whatsappUrl, '_blank');
 });

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Date Planner</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+        <!-- SCHEDA1: Proposta -->
+        <div class="question_1">
+            <div class="progress">
+                <span class="dotActive"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <img src="santaSofia2.jpg" alt="Santa Chiara Sofia Carmela">
+            <h1>Kiara will you go out with me?❤️</h1>
+            <p>please say yes🥲</p>
+            <button id="btn_yes">Yes💕</button>
+            <button id="btn_no">No💀</button>
+        </div>
+
+        <!-- SCHEDA2: Reazione YAYY -->
+        <div class="yay">
+            <div class="progress">
+                <span class="dotActive"></span>
+                <span class="dotActive"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <img src="mrBean.jpg" alt="MrBean flirty">
+            <h1>Yayyy🎉!!</h1>
+            <p>soooo unexpected</p>
+            <button class="btn_continue">Press to continue✨</button>
+        </div>
+
+        <!-- SCHEDA3: Scelta della data-->
+        <div class="question_2">
+            <div class="progress">
+                <span class="dotActive"></span>
+                <span class="dotActive"></span>
+                <span class="dotActive"></span>
+                <span class="dot"></span>
+            </div>
+            <h1>Pick a date📆</h1>
+            <input type="date">
+            <br>
+            <button class="btn_back_to_yay">Back</button>
+            <button class="btn_next">Next</button>
+    </div>
+
+    <!-- SCHEDA4: Scelta del cosa fare -->
+    <div class="question_3">
+        <div class="progress">
+                <span class="dotActive"></span>
+                <span class="dotActive"></span>
+                <span class="dotActive"></span>
+                <span class="dotActive"></span>
+            </div>
+        <h1>What would you like to do? (other than me)⭐</h1>
+        <p>pick as many as you want</p>
+        <button class="btn_dinner">🍕Dinner</button>
+        <button class="btn_movie">🎬Movie night</button>
+        <br>
+        <button class="btn_drink">🍸Drink</button>
+        <button class="btn_walk">🌙Evening walk</button>
+        <br>
+        <button class="btn_read">📖Reading date</button>
+        <button class="btn_cpnsole">🎮Nintendo date</button>
+        <br>
+        <button class="btn_back_to_date">Back</button>
+        <button class="btn_gotcha">Gotcha🔒</button>
+    </div>
+
+    <!-- SCHEDA5: Riepilogo e invio su whatsapp -->
+     <div class="summary"">
+        <div class="progress">
+            <span class="dotActive"></span>
+            <span class="dotActive"></span>
+            <span class="dotActive"></span>
+            <span class="dotActive"></span>
+        </div>
+        <h1>It's a date 🎉</h1>
+        <div id="summary_text" style="background: #ffeef2; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-weight: bold; color: #d81b60;">
+        </div>
+        <button class="btn_whatsapp">Send to Scema e Cretina on Whatsapp 💌</button>
+        <br>
+        <button class="btn_back_to_activities">Back</button>
+     </div>
+        <script src="script.js" defer></script>
+    </body>
+</html>

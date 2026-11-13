@@ -1,0 +1,112 @@
+/* RESET INIZIALE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* STILE E CENTRAGGIO DELLA PAGINE INIZIALE */
+body {
+ background-color: #fce0e7;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+ display: flex;
+ justify-content: center;
+ align-items: center;
+
+ min-height: 100vh;
+}
+
+/* STILE DELLE SCHEDE */
+.question_1, .yay, .question_2, .question_3, .summary {
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 350px;
+    width: 90%;
+}
+
+/* STILE DELLE IMMAGINI DENTRO LE SCHEDE */
+.question_1 img, .yay img {
+    width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    margin: 10px auto;
+    display: block;
+}
+
+/* STILE TESTI E TITOLI */
+h1 {
+    color: #d81b60;
+    font-size:  24px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* STILE BOTTONI */
+button {
+    background-color: #ff4081;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 5px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+button.selected {
+    background-color: #4caf50 !important;
+}
+
+.btn_back_to_yay, .btn_back_to_date, .btn_back_to_activities {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+button:hover {
+    background-color: #f50057;
+}
+
+.btn_back_to_yay:hover, .btn_back_to_date:hover, .btn_back_to_activities:hover {
+    background-color: #cccccc;
+}
+
+/* PALLINI DI PROGRESSO */
+.progress {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.dot, .dotActive {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dot {
+    background-color: #ddd;
+}
+
+.dotActive {
+    background-color: #ff4081;
+}
+
+/* NASCONDERE LE SCHEDE 2, 3, 4 E 5 */
+.yay, .question_2, .question_3, .summary {
+    display: none;
+}
+
+#btn_no {
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}

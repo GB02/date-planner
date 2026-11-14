@@ -115,6 +115,18 @@ button:hover {
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* ROTAZIONE A 360° DEL CLOWN */
+.clown-spin {
+    display: inline-block !important;
+    transform-origin: center center;
+    animation: spid360 2s linear infinite;
+}
+
+@keyframes spid360 {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+
 /* ANIMAZIONE FLUTTUANTE PER IL TITOLO */
 @keyframes floatTitle {
     0% {transform: translateY(0px);}

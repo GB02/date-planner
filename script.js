@@ -142,7 +142,7 @@ function escapeButton(e) {
 // Funzionamento con il mouse (PC)
 btnNo.addEventListener('mouseover', escapeButton);
 // Funzionamento con il tocco del dito (Smartphone)
-//btnNo.addEventListener('touchstart', escapeButton);
+btnNo.addEventListener('touchstart', escapeButton);
 
 /* VARIABILI PER SALVARE LE SCELTE */
 let selectedDate = "";

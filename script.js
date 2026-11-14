@@ -70,7 +70,7 @@ function createConfetti() {
         div.style.animationDelay = (Math.random() * 0.5) + 's';
         div.style.fontSize = (Math.random() * 15 + 18) + 'px';
         
-        bgContainer.appendChild(div);
+        document.body.appendChild(div);
 
         setTimeout(() => {
             div.remove();

@@ -21,14 +21,18 @@ body {
 
 /* STILE DELLE SCHEDE */
 .question_1, .yay, .question_2, .question_3, .summary {
-    background-color: white;
-    padding: 20px;
-    border-radius: 20px;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 25px;
     text-align: center;
-    max-width: 350px;
+    max-width: 360px;
     width: 90%;
     position: relative;
     z-index: 10;
+
+    border: 3px solid #ff4081;
+    box-shadow: 0 10px 25px rgba(255, 64, 129, 0.15),
+                0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 /* STILE DELLE IMMAGINI DENTRO LE SCHEDE */

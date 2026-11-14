@@ -148,14 +148,43 @@ btnNo.addEventListener('touchstart', escapeButton);
 let selectedDate = "";
 let selectedActivities = [];
 
-// Catturo l'input della data
-const dateInput = document.querySelector('input[type="date"]');
-if (dateInput) {
-    dateInput.addEventListener('change', function() {
-        selectedDate = dateInput.value;
-    });
+/* GENERAZIONE CALENDARIO PERSONALIZZATO (18-31 DICEMBRE 2026) */
+const calendarContainer = document.getElementById('custom-calendar');
+const hiddenDateInput = document.getElementById('selected-date');
+
+if (calendarContainer && hiddenDateInput) {
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    
+    for (let day = 18; day <= 31; day++) {
+        // Calcola il giorno della settimana esatto nel dicembre 2026
+        const dateObj = new Date(2026, 11, day); // 11 = Dicembre in JS
+        const dayName = daysOfWeek[dateObj.getDay()];
+        
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'day-btn';
+        btn.innerHTML = `${day}<span>${dayName}</span>`;
+        
+        btn.addEventListener('click', function() {
+            // Rimuove la selezione da eventuali altri giorni
+            document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('selected'));
+            // Seleziona questo giorno
+            btn.classList.add('selected');
+            // Salva il valore formattato (es. "2026-12-20")
+            const formattedDate = `${day} Dec 2026 (${dayName})`;
+            hiddenDateInput.value = formattedDate;
+            selectedDate = formattedDate;
+        });
+        
+        calendarContainer.appendChild(btn);
+    }
 }
 
+/* PASSAGGIO SCHERMATA SUCCESSIVA */
+btnNext.addEventListener('click', function() {
+    screen2.style.display = 'none';
+    screen3.style.display = 'block';
+});
 
 // Catturo le attività selezionate
 const activityButtons = document.querySelectorAll('.question_3 button:not(.btn_back_to_date):not(.btn_gotcha)');
@@ -186,7 +215,7 @@ if (btnGotcha) {
         screen3.style.display = 'none';
         screenSummary.style.display = 'block';
 
-        const displayDate = selectedDate ? selectedDate: "To be decided 👀";
+        const displayDate = selectedDate ? selectedDate: "TBD 👀";
         const displayActivities = selectedActivities.length > 0 ? selectedActivities.join(', ') : "We'll see 😏";
 
         // Formatto il testo del riepilogo
@@ -202,8 +231,8 @@ const btnWhatsapp = document.querySelector('.btn_whatsapp');
 if (btnWhatsapp) {
     btnWhatsapp.addEventListener('click', function() {
         const phoneNumber = "393451187602";
-        const finalDate = selectedDate ? selectedDate : "To be decided";
-        const finalActivities = selectedActivities.length > 0 ? selectedActivities.join(', ') : "We'll see";
+        const finalDate = selectedDate ? selectedDate : "TBD 👀";
+        const finalActivities = selectedActivities.length > 0 ? selectedActivities.join(', ') : "We'll see 😏";
 
         // Link al sito GitHub + i parametri passati in automatico
         const baseURL = "https://gb02.github.io/date-planner/";
@@ -237,46 +266,3 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 })
 
-/* GENERAZIONE CALENDARIO PERSONALIZZATO (18-31 DICEMBRE 2026) */
-const calendarContainer = document.getElementById('custom-calendar');
-const hiddenDateInput = document.getElementById('selected-date');
-
-if (calendarContainer && hiddenDateInput) {
-    const daysOfWeek = ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
-    
-    for (let day = 18; day <= 31; day++) {
-        // Calcola il giorno della settimana esatto nel dicembre 2026
-        const dateObj = new Date(2026, 11, day); // 11 = Dicembre in JS
-        const dayName = daysOfWeek[dateObj.getDay()];
-        
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'day-btn';
-        btn.innerHTML = `${day}<span>${dayName}</span>`;
-        
-        btn.addEventListener('click', function() {
-            // Rimuove la selezione da eventuali altri giorni
-            document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('selected'));
-            // Seleziona questo giorno
-            btn.classList.add('selected');
-            // Salva il valore formattato (es. "2026-12-20")
-            hiddenDateInput.value = `2026-12-${day}`;
-        });
-        
-        calendarContainer.appendChild(btn);
-    }
-}
-
-/* CONTROLLO SU BTN NEXT PER LA DATA SELEZIONATA */
-btnNext.addEventListener('click', function() {
-    const selectedDate = hiddenDateInput ? hiddenDateInput.value : '';
-    
-    if (!selectedDate) {
-        alert("Seleziona prima uno dei giorni disponibili dal 18 al 31 dicembre! 🎄");
-        return;
-    }
-
-    // Procedi alla schermata delle attività (adatta i nomi delle tue variabili schermo se diversi)
-    screen2.style.display = 'none';
-    screen3.style.display = 'block';
-});

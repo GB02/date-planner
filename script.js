@@ -236,3 +236,47 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     }
 })
+
+/* GENERAZIONE CALENDARIO PERSONALIZZATO (18-31 DICEMBRE 2026) */
+const calendarContainer = document.getElementById('custom-calendar');
+const hiddenDateInput = document.getElementById('selected-date');
+
+if (calendarContainer && hiddenDateInput) {
+    const daysOfWeek = ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
+    
+    for (let day = 18; day <= 31; day++) {
+        // Calcola il giorno della settimana esatto nel dicembre 2026
+        const dateObj = new Date(2026, 11, day); // 11 = Dicembre in JS
+        const dayName = daysOfWeek[dateObj.getDay()];
+        
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'day-btn';
+        btn.innerHTML = `${day}<span>${dayName}</span>`;
+        
+        btn.addEventListener('click', function() {
+            // Rimuove la selezione da eventuali altri giorni
+            document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('selected'));
+            // Seleziona questo giorno
+            btn.classList.add('selected');
+            // Salva il valore formattato (es. "2026-12-20")
+            hiddenDateInput.value = `2026-12-${day}`;
+        });
+        
+        calendarContainer.appendChild(btn);
+    }
+}
+
+/* CONTROLLO SU BTN NEXT PER LA DATA SELEZIONATA */
+btnNext.addEventListener('click', function() {
+    const selectedDate = hiddenDateInput ? hiddenDateInput.value : '';
+    
+    if (!selectedDate) {
+        alert("Seleziona prima uno dei giorni disponibili dal 18 al 31 dicembre! 🎄");
+        return;
+    }
+
+    // Procedi alla schermata delle attività (adatta i nomi delle tue variabili schermo se diversi)
+    screen2.style.display = 'none';
+    screen3.style.display = 'block';
+});

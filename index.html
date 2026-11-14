@@ -4,7 +4,7 @@
         <title>Date Planner</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css?v=2">
+        <link rel="stylesheet" href="style.css?v=3">
     </head>
     <body>
 
@@ -46,7 +46,10 @@
                 <span class="dot"></span>
             </div>
             <h1>Pick a date📆</h1>
-            <input type="date" min="2026-12-18" max="2026-12-31">
+            <!-- Sostituisco input type="date" per visualizzazione da smartphone corretta -->
+            <div class="month-label">Dicembre 2026 🎄</div>
+            <div id="custom-calendar" class="calendar-grid"></div>
+            <input type="hidden" id="selected-date" value="">
             <br>
             <button class="btn_back_to_yay">Back</button>
             <button class="btn_next">Next</button>
@@ -90,6 +93,6 @@
         <br>
         <button class="btn_back_to_activities">Back</button>
      </div>
-        <script src="script.js?v=2" defer></script>
+        <script src="script.js?v=3" defer></script>
     </body>
 </html>
